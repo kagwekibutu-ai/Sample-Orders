@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify & Send Invoice - kiwassons CEO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">kiwassons <span>CEO</span></div>
+    <nav class="nav-links">
+      <a href="index.html">Dashboard</a>
+      <a href="index.html#orders">Orders</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="ceo-name" class="ceo-name"></span>
+      <button id="logout-btn" class="btn btn-primary" style="padding:0.4rem 1rem">Logout</button>
+    </div>
+  </header>
+
+  <main class="invoice-editor-page">
+    <div class="editor-toolbar">
+      <a href="index.html#orders" class="btn btn-back">&larr; Back to Orders</a>
+      <span id="invoice-status-badge" class="invoice-badge">pending</span>
+      <button type="button" class="btn" id="save-invoice-btn">Save Draft</button>
+      <button type="button" class="btn btn-primary" id="send-invoice-btn">Send Invoice to Client</button>
+    </div>
+
+    <p id="invoice-message" class="invoice-message" style="display:none;"></p>
+
+    <div class="invoice-card" id="invoice-card">
+      <div class="invoice-accent"></div>
+
+      <div class="invoice-header">
+        <div class="invoice-brand">
+          <div class="logo">kiwassons <span>Auto Hardware</span></div>
+          <p><a href="https://maps.app.goo.gl/f6xpbP5TN2tVqDuK6" target="_blank" rel="noopener">Murang'a, Kenya</a><br>kiwashardwaressons@gmail.com<br>+254721397468 / +254722230690</p>
+        </div>
+        <div class="invoice-title-block">
+          <h1>INVOICE</h1>
+          <p id="inv-date">--</p>
+          <p class="invoice-no">Invoice No: <strong id="inv-number">--</strong></p>
+        </div>
+      </div>
+
+      <div class="invoice-meta">
+        <div class="bill-to">
+          <h4>TO:</h4>
+          <p id="inv-client-name">--</p>
+          <p id="inv-client-contact">--</p>
+          <input type="text" id="inv-client-address" placeholder="Delivery address" value="--">
+        </div>
+        <div class="order-meta">
+          <p><span>Order No:</span> <strong id="inv-order-number">--</strong></p>
+          <p><span>Order Date:</span> <strong id="inv-order-date">--</strong></p>
+          <p><span>Delivery Option:</span> <strong id="inv-delivery-method">--</strong></p>
+          <p><span>Order Status:</span> <strong id="inv-order-status">--</strong></p>
+        </div>
+      </div>
+
+      <div class="invoice-table-wrap">
+        <table class="invoice-edit-table">
+          <thead>
+            <tr><th>QTY</th><th>DESCRIPTION</th><th>PRICE</th><th>TOTAL</th><th></th></tr>
+          </thead>
+          <tbody id="invoice-items"></tbody>
+        </table>
+      </div>
+      <button type="button" class="btn add-item-btn" id="add-item-btn">+ Add Invoice Item</button>
+
+      <div class="invoice-bottom">
+        <div class="invoice-notes-block">
+          <h4>Payment Method &amp; Terms</h4>
+          <textarea id="invoice-notes" placeholder="e.g. Payment on pickup. Goods remain the property of kiwassons Auto Hardware until paid in full."></textarea>
+        </div>
+        <div class="invoice-summary">
+          <div class="summary-line"><span>Sub Total</span><span id="inv-subtotal">KES 0</span></div>
+          <div class="summary-line summary-total"><span>GRAND TOTAL</span><span id="inv-total">KES 0</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/invoice-editor.js"></script>
+</body>
+</html>

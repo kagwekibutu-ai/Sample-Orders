@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEO Dashboard - kiwassons Auto Hardware</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">kiwassons <span>CEO</span></div>
+    <nav class="nav-links">
+      <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+      <a href="#" onclick="showSection('orders')">Orders</a>
+      <a href="#" onclick="showSection('records')">Records</a>
+      <a href="#" onclick="showSection('products')">Products</a>
+      <a href="#" onclick="showSection('users')">Clients</a>
+      <a href="#" onclick="showSection('feedback')">Feedback</a>
+    </nav>
+    <div class="nav-actions">
+      <span id="ceo-name" class="ceo-name"></span>
+      <button id="logout-btn" class="btn btn-primary" style="padding:0.4rem 1rem">Logout</button>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <aside class="sidebar">
+      <h3>kiwassons Auto Hardware</h3>
+      <p style="font-size:0.8rem;margin-bottom:1.5rem;color:#D0E6FD;"><a href="https://maps.app.goo.gl/f6xpbP5TN2tVqDuK6" target="_blank" rel="noopener" style="color:#D0E6FD;text-decoration:underline;">Murang'a, Kenya</a></p>
+      <ul>
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('orders')">Orders</a></li>
+        <li><a href="#" onclick="showSection('records')">Records</a></li>
+        <li><a href="#" onclick="showSection('products')">Products</a></li>
+        <li><a href="#" onclick="showSection('users')">Clients</a></li>
+        <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <section id="dashboard" class="admin-section">
+        <h2>CEO Dashboard</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><h3>Total Orders</h3><p id="stat-total-orders">0</p></div>
+          <div class="stat-card"><h3>Total Revenue</h3><p id="stat-revenue">KES 0</p></div>
+          <div class="stat-card"><h3>Pending Orders</h3><p id="stat-pending">0</p></div>
+          <div class="stat-card"><h3>Ready for Collection</h3><p id="stat-ready">0</p></div>
+          <div class="stat-card"><h3>Invoices Sent</h3><p id="stat-invoices-sent">0</p></div>
+          <div class="stat-card"><h3>Total Paid</h3><p id="stat-paid">KES 0</p></div>
+        </div>
+        <h3>Recent Orders</h3>
+        <div id="recent-orders" class="table-wrap"></div>
+      </section>
+
+      <section id="orders" class="admin-section" style="display:none;">
+        <h2>All Client Orders</h2>
+        <div class="filters" style="margin-bottom:1rem;">
+          <select id="order-status-filter">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="ready">Ready for Collection</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <select id="order-delivery-filter">
+            <option value="">All Delivery Options</option>
+            <option value="pickup">Pickup at Store</option>
+            <option value="delivery">kiwassons Delivery</option>
+            <option value="self">Client's Own Transport</option>
+          </select>
+        </div>
+        <div id="orders-table" class="table-wrap"></div>
+      </section>
+
+      <section id="records" class="admin-section" style="display:none;">
+        <h2>CEO Records</h2>
+        <p class="section-subtitle">Goods ordered, who ordered, invoices submitted, payments received and the full order timeline.</p>
+
+        <div class="record-tabs">
+          <button class="record-tab active" data-tab="goods" onclick="showRecordTab('goods')">Goods Ordered</button>
+          <button class="record-tab" data-tab="invoices" onclick="showRecordTab('invoices')">Invoices Submitted</button>
+          <button class="record-tab" data-tab="payments" onclick="showRecordTab('payments')">Payments Made</button>
+          <button class="record-tab" data-tab="timeline" onclick="showRecordTab('timeline')">Order Timeline</button>
+        </div>
+
+        <div id="record-goods" class="record-panel">
+          <h3>Goods Ordered</h3>
+          <div id="goods-records-table" class="table-wrap"></div>
+        </div>
+
+        <div id="record-invoices" class="record-panel" style="display:none;">
+          <h3>Invoices Submitted</h3>
+          <div id="invoices-records-table" class="table-wrap"></div>
+        </div>
+
+        <div id="record-payments" class="record-panel" style="display:none;">
+          <h3>Record a Payment</h3>
+          <form id="payment-form" class="payment-form">
+            <div class="form-row">
+              <select id="payment-order" required>
+                <option value="">Select order...</option>
+              </select>
+              <input type="number" id="payment-amount" placeholder="Amount (KES)" min="1" step="0.01" required>
+              <select id="payment-method">
+                <option value="Cash">Cash</option>
+                <option value="M-Pesa">M-Pesa</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Card">Card</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <input type="text" id="payment-reference" placeholder="Payment reference / receipt no.">
+              <input type="datetime-local" id="payment-date">
+              <input type="text" id="payment-notes" placeholder="Notes (optional)">
+            </div>
+            <button type="submit" class="btn btn-primary">Record Payment</button>
+            <span id="payment-balance-hint" class="payment-hint"></span>
+          </form>
+          <h3>Payments Received</h3>
+          <div id="payments-records-table" class="table-wrap"></div>
+        </div>
+
+        <div id="record-timeline" class="record-panel" style="display:none;">
+          <h3>Order Timeline</h3>
+          <div class="timeline-controls">
+            <select id="timeline-order">
+              <option value="">Select order...</option>
+            </select>
+            <button class="btn btn-primary" onclick="loadOrderTimeline()">View Timeline</button>
+          </div>
+          <div id="timeline-summary" class="timeline-summary"></div>
+          <div id="timeline-list" class="timeline-list"></div>
+        </div>
+      </section>
+
+      <section id="products" class="admin-section" style="display:none;">
+        <h2>Manage Products</h2>
+        <button class="btn btn-primary" onclick="showProductForm()">Add Product</button>
+        <div id="product-form" style="display:none;margin-bottom:1rem;">
+          <input type="hidden" id="edit-product-id">
+          <div class="form-row">
+            <input type="text" id="prod-name" placeholder="Product Name">
+            <input type="text" id="prod-category" placeholder="Category">
+            <input type="number" id="prod-price" placeholder="Price">
+          </div>
+          <div class="form-row">
+            <input type="number" id="prod-stock" placeholder="Stock">
+            <input type="text" id="prod-image" placeholder="Image URL">
+          </div>
+          <button class="btn btn-primary" onclick="saveProduct()">Save</button>
+          <button class="btn" onclick="hideProductForm()" style="background:#666">Cancel</button>
+        </div>
+        <div id="products-table" class="table-wrap"></div>
+      </section>
+
+      <section id="users" class="admin-section" style="display:none;">
+        <h2>Registered Clients</h2>
+        <div id="users-table" class="table-wrap"></div>
+      </section>
+
+      <section id="feedback" class="admin-section" style="display:none;">
+        <h2>Client Feedback</h2>
+        <div id="feedback-table" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEO Login - kiwassons Auto Hardware</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+  <div class="login-card">
+    <div class="logo">kiwassons <span>Construction</span></div>
+    <h1>CEO Login</h1>
+    <p>This portal is restricted to the CEO. Clients only register their details on the shop, place orders, and receive notifications.</p>
+    <form id="ceo-login-form">
+      <div class="form-group">
+        <label for="ceo-email">Email</label>
+        <input type="email" id="ceo-email" placeholder="admin@kiwassons.com" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="ceo-password">Password</label>
+        <input type="password" id="ceo-password" placeholder="Password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="ceo-login-btn">Login to CEO Dashboard</button>
+      <p id="login-error" class="error-msg" style="display:none;"></p>
+    </form>
+    <a href="../client/index.html" class="back-link">&larr; Back to shop</a>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
